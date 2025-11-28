@@ -1,72 +1,28 @@
-🧠 Inferência CNN com TFLite (EdgeML)
+# 🧠 Inferência CNN com TFLite (EdgeML)
 
-Este diretório contém o script de inferência otimizado para rodar modelos de Deep Learning em dispositivos de borda (Edge Devices), como a Labrador, Raspberry Pi ou outros sistemas Linux embarcados.
+![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
+![TFLite](https://img.shields.io/badge/TensorFlow%20Lite-Runtime-orange)
+![Platform](https://img.shields.io/badge/Platform-Labrador%20%7C%20Raspberry%20Pi%20%7C%20Linux-green)
 
-O script utiliza o interpretador TensorFlow Lite (TFLite) com quantização para garantir alta performance e baixo consumo de memória.
+Este diretório contém o script de inferência otimizado para rodar modelos de Deep Learning em dispositivos de borda (*Edge Devices*), como a **Labrador**, Raspberry Pi ou outros sistemas Linux embarcados.
 
-📋 Funcionalidades
+O script utiliza o interpretador **TensorFlow Lite (TFLite)** com quantização para garantir alta performance e baixo consumo de memória.
 
-Carregamento de Modelo: Carrega um modelo .tflite quantizado (INT8).
+## 📋 Funcionalidades
 
-Pré-processamento: Redimensiona a imagem para 28x28 e converte para escala de cinza (Grayscale).
+* **Carregamento de Modelo:** Carrega um modelo `.tflite` quantizado (INT8).
+* **Pré-processamento:** Redimensiona a imagem para 28x28 e converte para escala de cinza (*Grayscale*).
+* **Quantização Manual:** Aplica a normalização necessária na entrada para compatibilidade com modelos INT8.
+* **Inferência Rápida:** Executa a predição e calcula o tempo de resposta (latência).
+* **Interpretação:** Exibe a classe predita (ex: Camisa, Tênis, Bolsa) e a porcentagem de confiança.
 
-Quantização Manual: Aplica a normalização necessária na entrada para compatibilidade com modelos INT8.
+## 🛠️ Pré-requisitos
 
-Inferência Rápida: Executa a predição e calcula o tempo de resposta (latência).
+Este script depende da biblioteca `tflite_runtime`, uma versão leve do TensorFlow ideal para hardware embarcado.
 
-Interpretação: Exibe a classe predita (ex: Camisa, Tênis, Bolsa) e a porcentagem de confiança.
-
-🛠️ Pré-requisitos
-
-Este script depende da biblioteca tflite_runtime, uma versão leve do TensorFlow ideal para hardware embarcado.
-
-Dependências
+### Dependências
 
 Instale as bibliotecas necessárias executando:
 
+```bash
 pip install numpy pillow tflite-runtime
-
-
-Nota para Windows/Mac: Se tiver dificuldade em instalar o tflite-runtime, instale o tensorflow completo e altere a importação no código para import tensorflow.lite as tflite.
-
-📂 Arquivos Necessários
-
-Certifique-se de que os seguintes arquivos estejam na mesma pasta para a execução correta:
-
-inferencia_cnn.py: O código Python de execução.
-
-fashion_mnist_cnn_quantized.tflite: O modelo treinado e convertido.
-
-teste5.png: Uma imagem de exemplo para teste.
-
-🚀 Como Rodar
-
-No terminal, navegue até a pasta do projeto e execute:
-
-python inferencia_cnn.py
-
-
-Saída Esperada
-
-O script imprimirá no console o resultado da classificação e o tempo gasto:
-
---- Resultado da Inferência no Ambiente Linux (Simulando a Labrador) ---
-Modelo: fashion_mnist_cnn_quantized.tflite (Quantizado)
-Previsão: Camisa T-shirt/top
-Confiança: 98.40%
-Tempo de inferência: 3.52 ms
-
-
-🧩 Detalhes Técnicos
-
-Modelo: CNN (Convolutional Neural Network) treinada no dataset Fashion MNIST.
-
-Entrada: Imagens 28x28 pixels, 1 canal.
-
-Lógica de Quantização:
-
-O script extrai scale e zero_point do modelo.
-
-A entrada é convertida: input = input / scale + zero_point.
-
-A saída é desquantizada: output = (output - zero_point) * scale.
